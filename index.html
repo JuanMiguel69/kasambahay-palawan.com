@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasambahay Palawan - Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function showStayInForm() {
+            document.getElementById('stay-in-form').classList.remove('hidden');
+            document.getElementById('stay-out-form').classList.add('hidden');
+            document.getElementById('specific-tasks-form').classList.add('hidden');
+        }
+
+        function showStayOutForm() {
+            document.getElementById('stay-out-form').classList.remove('hidden');
+            document.getElementById('stay-in-form').classList.add('hidden');
+            document.getElementById('specific-tasks-form').classList.add('hidden');
+        }
+
+        function showSpecificTasksForm() {
+            document.getElementById('specific-tasks-form').classList.remove('hidden');
+            document.getElementById('stay-in-form').classList.add('hidden');
+            document.getElementById('stay-out-form').classList.add('hidden');
+        }
+
+        function submitForm(event, formId) {
+    event.preventDefault();
+    let selectedServices = [];
+    let serviceType = '';
+
+    if (formId === 'stay-in-form') {
+        serviceType = 'Stay In';
+        selectedServices.push(serviceType);
+        document.querySelectorAll(`#${formId} input, #${formId} select`).forEach(input => {
+            if (input.value.trim() !== '') {
+                let label = input.previousElementSibling ? input.previousElementSibling.textContent.trim() : '';
+                selectedServices.push(`${label} ${input.value.trim()}`);
+            }
+        });
+    } else if (formId === 'stay-out-form') {
+        serviceType = 'Stay Out';
+        selectedServices.push(serviceType);
+        document.querySelectorAll(`#${formId} input, #${formId} select`).forEach(input => {
+            if (input.value.trim() !== '') {
+                let label = input.previousElementSibling ? input.previousElementSibling.textContent.trim() : '';
+                selectedServices.push(`${label} ${input.value.trim()}`);
+            }
+        });
+    } else {
+        serviceType = 'Specific Tasks';
+        selectedServices.push(serviceType);
+        document.querySelectorAll('#specific-tasks-form input[type="checkbox"]:checked').forEach(checkbox => {
+            selectedServices.push(checkbox.parentElement.textContent.trim());
+        });
+    }
+
+    sessionStorage.setItem("selectedServices", JSON.stringify(selectedServices));
+    window.location.href = 'confirm.html';
+}
+
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+
+ 
+
+</script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+    <!-- Navigation Bar -->
+    <header class="bg-green-600 text-white w-full p-4 flex justify-between items-center shadow-md fixed top-0 left-0 right-0 h-16">
+        <h1 class="text-2xl font-bold">Kasambahay Palawan</h1>
+        <div class="flex space-x-4">
+            <a href="#contact" class="text-white hover:underline">Contact</a>
+            <button onclick="window.location.href='refer.html'" class="bg-white text-green-600 px-4 py-2 rounded hover:bg-gray-200">Referral Program</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="text-center mt-20">
+        <h1 class="text-5xl font-extrabold text-green-700 mb-6">Welcome to Kasambahay Palawan</h1>
+        <p class="text-lg text-gray-600 mb-8">Reliable and professional household services at your fingertips.</p>
+        <div class="mt-6 flex justify-center space-x-6">
+            <button onclick="showStayInForm()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 shadow">Stay In</button>
+            <button onclick="showStayOutForm()" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 shadow">Stay Out</button>
+            <button onclick="showSpecificTasksForm()" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 shadow">Specific Tasks</button>
+        </div>
+    </section>
+
+    <!-- Stay In Form -->
+<section id="stay-in-form" class="hidden mt-12 p-6 bg-white rounded-lg shadow-lg w-3/4">
+    <h2 class="text-3xl font-bold text-green-700 mb-4">Stay In Service</h2>
+    <form onsubmit="submitForm(event, 'stay-in-form')">
+        <div class="mb-4">
+            <label class="block font-medium">Location:</label>
+            <input type="text" class="border p-2 rounded w-full" placeholder="Enter your location">
+        </div>
+        <div class="mb-4">
+            <label class="block font-medium">House Size (sqm):</label>
+            <input type="number" class="border p-2 rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block font-medium">Number of Floors:</label>
+            <input type="number" class="border p-2 rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block font-medium">Does your house have a backyard or front yard?</label>
+            <select class="border p-2 rounded w-full">
+                <option value="">-- Select --</option>
+                <option value="backyard">Backyard</option>
+                <option value="frontyard">Front Yard</option>
+                <option value="both">Both</option>
+                <option value="none">None</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block font-medium">Number of Children:</label>
+            <input type="number" class="border p-2 rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block font-medium">Number of Pets:</label>
+            <input type="number" class="border p-2 rounded w-full">
+        </div>
+        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 shadow">Submit</button>
+    </form>
+</section>
+
+   <!-- Stay Out Form -->
+<section id="stay-out-form" class="hidden mt-12 p-6 bg-white rounded-lg shadow-lg w-3/4">
+    <h2 class="text-3xl font-bold text-green-700 mb-4">Stay Out Service</h2>
+    <form id="stay-out-form" onsubmit="submitForm(event, 'stay-out-form')">
+        <div class="mb-4">
+            <label class="block font-medium">Location:</label>
+            <input type="text" class="border p-2 rounded w-full" placeholder="Enter your location">
+        </div>
+        <div class="mb-4">
+            <label class="block font-medium">Select Date:</label>
+            <input type="date" class="border p-2 rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block font-medium">Select Time Interval:</label>
+            <div class="flex space-x-2">
+                <input type="time" class="border p-2 rounded w-1/2">
+                <input type="time" class="border p-2 rounded w-1/2">
+            </div>
+        </div>
+        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 shadow">Submit</button>
+    </form>
+</section>
+
+
+    <!-- Specific Tasks Form -->
+    <section id="specific-tasks-form" class="hidden mt-12 p-6 bg-white rounded-lg shadow-lg w-3/4">
+        <h2 class="text-3xl font-bold text-green-700 mb-4">Specific Tasks</h2>
+        <form onsubmit="submitForm(event, 'specific-tasks-form')">
+            <div class="mb-4">
+                <h3 class="font-bold text-lg">Soft Tasks</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <label><input type="checkbox"> Laundry</label>
+                    <label><input type="checkbox"> Sweeping</label>
+                    <label><input type="checkbox"> Sorting</label>
+                    <label><input type="checkbox"> Watering Plants</label>
+                    <label><input type="checkbox"> Organizing</label>
+                </div>
+            </div>
+            <div class="mb-4">
+                <h3 class="font-bold text-lg">Hard Tasks</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <label><input type="checkbox"> Cleaning Carpets</label>
+                    <label><input type="checkbox"> Bathroom Cleaning</label>
+                    <label><input type="checkbox"> Moving Heavy Furniture</label>
+                    <label><input type="checkbox"> Mowing Lawn</label>
+                    <label><input type="checkbox"> Cleaning Windows</label>
+                </div>
+            </div>
+            <button type="submit" class="bg-green-600 text-white px-6 py-2 mt-4 rounded-lg hover:bg-green-700 shadow">Submit</button>
+        </form>
+    </section>
+</body>
+</html>

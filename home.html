@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasambahay Palawan - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function switchLanguage(lang) {
+            const translations = {
+                "en": {
+                    "welcome": "Welcome to Kasambahay Palawan",
+                    "question": "What would you like to do today?",
+                    "apply": "Apply with Us",
+                    "book": "Book a Service"
+                },
+                "fil": {
+                    "welcome": "Maligayang Pagdating sa Kasambahay Palawan",
+                    "question": "Ano ang gusto mong gawin ngayon?",
+                    "apply": "Mag-apply sa Amin",
+                    "book": "Mag-book ng Serbisyo"
+                }
+            };
+
+            document.getElementById("welcome-text").innerText = translations[lang]["welcome"];
+            document.getElementById("question-text").innerText = translations[lang]["question"];
+            document.getElementById("apply-button").innerText = translations[lang]["apply"];
+            document.getElementById("book-button").innerText = translations[lang]["book"];
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center text-center">
+    <header class="absolute top-4 right-4">
+        <select onchange="switchLanguage(this.value)" class="bg-white text-green-600 px-4 py-2 rounded shadow">
+            <option value="en">English</option>
+            <option value="fil">Filipino</option>
+        </select>
+    </header>
+
+    <section class="p-10 bg-white shadow-lg rounded-lg">
+        <h1 id="welcome-text" class="text-5xl font-extrabold text-green-700 mb-6">Welcome to Kasambahay Palawan</h1>
+        <p id="question-text" class="text-lg text-gray-600 mb-8">What would you like to do today?</p>
+        <div class="flex justify-center space-x-6">
+            <a href="apply.html" id="apply-button" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 shadow">Apply with Us</a>
+            <a href="index.html" id="book-button" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 shadow">Book a Service</a>
+        </div>
+    </section>
+</body>
+</html>
+
+
+
